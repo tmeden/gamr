@@ -10,6 +10,7 @@ class Profile(models.Model):
     )
     # fb_id = models.CharField(max_length=20, unique=True)
     bio = models.TextField()
+    picture = models.ImageField(null=True, blank=True)
 
     # PROFILE_PRIVACY_SETTING_CHOICES = (
     #     ('O', 'Open'),
@@ -34,6 +35,10 @@ class Profile(models.Model):
     #email, first_name, gender, last_name, link
 
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
+
+
+
+User.groups = property(lambda u: Group.objects.filter(members=u))
 
 # The pre-post stuph.
 
@@ -62,7 +67,6 @@ class Group(models.Model):
     # )
     def __unicode__(self):
         return self.name
-
 
     @property
     def owner_username(self):
@@ -95,6 +99,9 @@ class UserInGroup(models.Model):
     # )
     user = models.ForeignKey(User)
     group = models.ForeignKey(Group)
+
+    # def __unicode__(self):
+    #     return self.user + " in " + self.group
 
 
 #
@@ -165,7 +172,8 @@ class Post(models.Model):
 
     @property
     def owner_profile_image(self):
-        return "https://ivegotaproblemblog.files.wordpress.com/2012/07/386px-tux-g2-svg1.png"
+        return self.owner.profile.picture
+        # return "https://ivegotaproblemblog.files.wordpress.com/2012/07/386px-tux-g2-svg1.png"
 
     @property
     def group_name(self):

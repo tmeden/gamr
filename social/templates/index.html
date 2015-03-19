@@ -34,11 +34,11 @@
 {#              <li><a href="#/posts/new">New post</a></li>#}
             </ul>
             <div class="pull-right navbar-form navbar-right" ng-controller="UserCtrl">
-              <div ng-show="user==='Guest'">
+              <div ng-show="user  ">
                 <a href="" ng-href="#/login"><button class="btn btn-default">Login</button></a>
                 <a href="" ng-href="#/register"><button class="btn btn-default">Register</button></a>
               </div>
-              <div ng-hide="user==='Guest'">
+              <div ng-hide="user">
                 <big><span ng-bind="user"></span> <i class="fa fa-user"></i></big>
                 <a href="" ng-href="#/logout"><button class="btn btn-default">Logout</button></a>
               </div>

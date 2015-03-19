@@ -3,21 +3,24 @@ from social.models import *
 
 
 # Basic stuph.
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('pk', 'username', 'image_url')
-
-
 class ProfileSerializer(serializers.ModelSerializer):
     # owner = UserSerializer(read_only=True)
     class Meta:
         model = Profile
-        fields = ('pk', 'username', 'bio')
+        fields = ('bio', 'picture')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'profile')
+
+
 
 
 class ListPostSerializer(serializers.ModelSerializer):
-    # owner = UserSerializer(read_only=True)
+    # post_owner = UserSerializer(read_only=True)
     # group = GroupSerializer(read_only=True, allow_null=True)
     # comments = CommentSerializer(many=True, read_only=True)
 
@@ -27,7 +30,7 @@ class ListPostSerializer(serializers.ModelSerializer):
             'pk',
             'owner',
             'owner_name',
-            'owner_profile_image',
+            # 'owner_profile_image',
             'text',
             'timestamp',
             'comment_count',
@@ -66,15 +69,53 @@ class ViewPostSerializer(serializers.ModelSerializer):
 
 class ViewGroupSerializer(serializers.ModelSerializer):
     posts = ListPostSerializer(many=True, read_only=True)
+    members = UserSerializer(many=True, read_only=True)
     class Meta:
         model = Group
-        fields = ('pk', 'name', 'owner', 'description', 'posts')
+        fields = ('pk', 'name', 'owner', 'description', 'posts', 'members')
 
 
 class ListGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ('pk', 'name', 'owner', 'description', 'post_count')
+        fields = ('pk', 'name', 'owner', 'description', 'post_count', 'member_count')
+
+
+class UserInGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserInGroup
+        fields = ('user', 'group')
+
+
+class BasicGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('pk', 'name', 'description', 'member_count')
+
+
+# class ViewUserWithGroupsSerializer(serializers.ModelSerializer):
+#     # profile = ProfileSerializer(read_only=True)
+#     groups = BasicGroupSerializer(many=True, read_only=True)
+#     # group_memberships = UserInGroupSerializer(many=True, read_only=True)
+#     class Meta:
+#         model = User
+#         fields = ('pk', 'username', 'groups')
+
+
+class UserWithGroupsSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    groups = BasicGroupSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'profile', 'groups')
+
+
+class FeedSerializer(serializers.ModelSerializer):
+    posts = ListPostSerializer(many=True, read_only=True)
+    class Meta:
+        model = Post
+        fields = ('posts',)
+
 
 
 # class AddGroupSerializer(serializers.ModelSerializer):

@@ -7,11 +7,15 @@ urlpatterns = patterns('',
 
     url(r'^users/me', views.MyProfile),
 
-    url(r'^users/(?P<pk>\d+)', RetrieveProfile.as_view()),
+    url(r'^users/(?P<pk>\d+)', RetrieveUser.as_view()),
 
-    url(r'^users', ListProfile.as_view()),
+    url(r'^users', ListUser.as_view()),
 
     url(r'^myusername', RetrieveCurrentUser.as_view()),
+
+    url(r'^groups/feed', GroupFeed.as_view()),
+
+    url(r'^groups/(?P<group_id>\d+)/join', CreateUserInGroup.as_view()),
 
     url(r'^groups/(?P<pk>\d+)', RetrieveUpdateDestroyGroup.as_view()),
 
@@ -25,6 +29,8 @@ urlpatterns = patterns('',
 
     url(r'^comments', CreateComment.as_view()),
 
-    # url(r'^feed', Feed.as_view()),
+    url(r'^like/(?P<pk>\d+)', DeleteLike.as_view()),
+
+    url(r'^like', CreateLike.as_view()),
 
 )

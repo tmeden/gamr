@@ -116,7 +116,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGINATION': 25
 }
 
 ROOT_URLCONF = 'gamr.urls'

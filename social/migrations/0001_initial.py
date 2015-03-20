@@ -17,9 +17,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.TextField()),
+                ('timestamp', models.DateTimeField(default=b'2015-03-14T09:26:53.589793Z', auto_now_add=True)),
                 ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
+                'ordering': ['timestamp'],
             },
             bases=(models.Model,),
         ),
@@ -49,11 +51,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.TextField()),
-                ('timestamp', models.DateTimeField(auto_now_add=True)),
+                ('timestamp', models.DateTimeField(default=b'2015-03-14T09:26:53.589793Z', auto_now_add=True)),
                 ('group', models.ForeignKey(related_name='posts', to='social.Group')),
                 ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
+                'ordering': ['-timestamp'],
             },
             bases=(models.Model,),
         ),
@@ -61,8 +64,12 @@ class Migration(migrations.Migration):
             name='Profile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('bio', models.TextField()),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('bio', models.TextField(null=True, blank=True)),
+                ('picture', models.ImageField(null=True, upload_to=b'', blank=True)),
+                ('gender', models.CharField(max_length=40, null=True, blank=True)),
+                ('dob', models.DateField(null=True, blank=True)),
+                ('location', models.CharField(max_length=60, null=True, blank=True)),
+                ('owner', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -74,17 +81,25 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('joined', models.DateTimeField(auto_now_add=True)),
                 ('group', models.ForeignKey(to='social.Group')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='useringroup',
+            unique_together=set([('owner', 'group')]),
         ),
         migrations.AddField(
             model_name='like',
             name='post',
             field=models.ForeignKey(related_name='likes', to='social.Post'),
             preserve_default=True,
+        ),
+        migrations.AlterUniqueTogether(
+            name='like',
+            unique_together=set([('owner', 'post')]),
         ),
         migrations.AddField(
             model_name='group',

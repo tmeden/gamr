@@ -1,13 +1,19 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from social.api import views
 from social.api.views import *
 
 
 urlpatterns = patterns('',
 
-    url(r'^users/me', views.MyProfile),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^users/(?P<pk>\d+)', RetrieveUser.as_view()),
+    url(r'^profile/make', MakeProfile.as_view()),
+
+    url(r'^profile/(?P<pk>\d+)', RetrieveUpdateProfile.as_view()),
+
+    # url(r'^users/me', MyProfile.as_view()),
+
+    # url(r'^users/(?P<pk>\d+)', RetrieveUser.as_view()),
 
     url(r'^users', ListUser.as_view()),
 
@@ -15,7 +21,7 @@ urlpatterns = patterns('',
 
     url(r'^groups/feed', GroupFeed.as_view()),
 
-    url(r'^groups/(?P<group_id>\d+)/join', CreateUserInGroup.as_view()),
+    url(r'^groups/join', CreateUserInGroup.as_view()),
 
     url(r'^groups/(?P<pk>\d+)', RetrieveUpdateDestroyGroup.as_view()),
 

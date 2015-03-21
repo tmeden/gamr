@@ -3,6 +3,7 @@ from social.models import *
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Profile
         fields = ('pk', 'bio', 'picture', 'gender', 'dob', 'location')
@@ -10,18 +11,21 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(read_only=True)
+
     class Meta:
         model = User
         fields = ('pk', 'username', 'profile')
 
 
 class ListPostSerializer(serializers.ModelSerializer):
-    owner_info = UserSerializer(read_only=True)
+    owner_profile_image = serializers.ImageField(use_url=True)
     class Meta:
         model = Post
         fields = (
             'pk',
-            'owner_info',
+            'owner',
+            'owner_name',
+            'owner_profile_image',
             'text',
             'timestamp',
             'comment_count',
@@ -58,12 +62,15 @@ class CreateLikeSerializer(serializers.ModelSerializer):
 class ViewPostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     likes = LikeSerializer(many=True, read_only=True)
-    owner_info = UserSerializer(read_only=True)
+    owner_profile_image = serializers.ImageField(use_url=True)
+
     class Meta:
         model = Post
         fields = (
             'pk',
-            'owner_info',
+            'owner',
+            'owner_name',
+            'owner_profile_image',
             'text',
             'timestamp',
             'group',
@@ -76,6 +83,7 @@ class ViewPostSerializer(serializers.ModelSerializer):
 class ViewGroupSerializer(serializers.ModelSerializer):
     posts = ListPostSerializer(many=True, read_only=True)
     members = UserSerializer(many=True, read_only=True)
+
     class Meta:
         model = Group
         fields = (
@@ -115,6 +123,7 @@ class BasicGroupSerializer(serializers.ModelSerializer):
 class UserWithGroupsSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
     groups = BasicGroupSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
         fields = ('pk', 'username', 'profile', 'groups')

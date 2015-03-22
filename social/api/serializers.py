@@ -18,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ListPostSerializer(serializers.ModelSerializer):
-    owner_profile_image = serializers.ImageField(use_url=True)
+    owner_profile_image = serializers.ImageField(use_url=True, read_only=True)
     class Meta:
         model = Post
         fields = (
@@ -36,7 +36,7 @@ class ListPostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    owner_profile_image = serializers.ImageField(use_url=True)
+    owner_profile_image = serializers.ImageField(use_url=True, read_only=True)
     class Meta:
         model = Comment
         fields = ('pk', 'owner_name', 'text', 'timestamp', 'owner_profile_image')
@@ -63,7 +63,7 @@ class CreateLikeSerializer(serializers.ModelSerializer):
 class ViewPostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     likes = LikeSerializer(many=True, read_only=True)
-    owner_profile_image = serializers.ImageField(use_url=True)
+    owner_profile_image = serializers.ImageField(use_url=True, read_only=True)
 
     class Meta:
         model = Post

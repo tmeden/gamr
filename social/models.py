@@ -102,6 +102,10 @@ class Comment(models.Model):
     def owner_name(self):
         return self.owner.username
 
+    @property
+    def owner_profile_image(self):
+        return self.owner.profile.picture
+
 
 class Like(models.Model):
     owner = models.ForeignKey(User)

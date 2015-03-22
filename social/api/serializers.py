@@ -36,9 +36,10 @@ class ListPostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    owner_profile_image = serializers.ImageField(use_url=True)
     class Meta:
         model = Comment
-        fields = ('pk', 'owner_name', 'text', 'timestamp')
+        fields = ('pk', 'owner_name', 'text', 'timestamp', 'owner_profile_image')
 
 
 class LikeSerializer(serializers.ModelSerializer):

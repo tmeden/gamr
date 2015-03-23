@@ -17,7 +17,7 @@ urlpatterns = patterns('',
 
     url(r'^users', ListUser.as_view()),
 
-    url(r'^myusername', RetrieveCurrentUser.as_view()),
+    url(r'^myinfo', RetrieveCurrentUser.as_view()),
 
     url(r'^groups/feed', GroupFeed.as_view()),
 

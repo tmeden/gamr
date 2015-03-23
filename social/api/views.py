@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from requests import Response
 from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
@@ -11,13 +12,11 @@ class FacebookLogin(SocialLogin):
     adapter_class = FacebookOAuth2Adapter
 
 
-class RetrieveCurrentUser(generics.RetrieveAPIView):
-    serializer_class = UserSerializer
+class RetrieveCurrentUser(generics.ListAPIView):
+    serializer_class = UserWithGroupsSerializer
 
-    def get(self, request):
-        data = User.objects.filter(username=self.request.user)
-        return HttpResponse(data)
-
+    def get_queryset(self):
+        return User.objects.filter(username=self.request.user.username)
 
 class RetrieveUser(generics.RetrieveAPIView):
     queryset = User.objects.all()

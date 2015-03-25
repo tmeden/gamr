@@ -43,6 +43,9 @@ class Group(models.Model):
     def member_count(self):
         return self.members.count()
 
+    class Meta:
+        ordering = ['-pk']
+
 
 class UserInGroup(models.Model):
     joined = models.DateTimeField(auto_now_add=True)

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gamr')
-  .controller('RegisterCtrl', function ($scope, $location, djangoAuth, Validate) {
+  .controller('RegisterCtrl', function ($scope, djangoAuth, Validate) {
   	$scope.model = {'username':'','password':'','email':''};
   	$scope.complete = false;
     $scope.register = function(formData){
@@ -12,7 +12,6 @@ angular.module('gamr')
         .then(function(data){
         	// success case
         	$scope.complete = true;
-            $location.path('/');
         },function(data){
         	// error case
         	$scope.errors = data;

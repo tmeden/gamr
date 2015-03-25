@@ -7,13 +7,13 @@ angular.module('gamr')
 
     $routeProvider
 
-      .when('/login', {
-        templateUrl: '/static/User/login_register.html',
-        controller: 'LoginRegisterCtrl'
+      .when('/', {
+        templateUrl: '/static/Gamr/_home.html',
+        controller: 'HomeCtrl'
       })
       .when('/posts/:id', {
-        templateUrl: '/static/Post/_view.html',
-        controller: 'PostViewCtrl'
+        templateUrl: '/static/Gamr/_post.html',
+        controller: 'PostCtrl'
       })
       .when('/profile/:id', {
         templateUrl: '/static/Gamr/_profile.html',
@@ -23,9 +23,13 @@ angular.module('gamr')
         templateUrl: '/static/Gamr/_feed.html',
         controller: 'FeedCtrl'
       })
+      .when('/groups/:id', {
+        templateUrl: '/static/Gamr/_group.html',
+        controller: 'GroupCtrl'
+      })
       .when('/groups', {
-        templateUrl: '/static/Group/_browse_search.html',
-        controller: 'BrowseSearchGroupCtrl'
+        templateUrl: '/static/Gamr/_mygroups.html',
+        controller: 'MyGroupsCtrl'
       })
       .when('/discover', {
         templateUrl: '/static/Gamr/_discover.html',

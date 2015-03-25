@@ -7,15 +7,9 @@ angular.module('gamr')
         $scope.posts = [];
         console.log('FeedCtrl happening');
 
-        var listPosts = function() {
-            API.listPosts()
-                .then(function (data) {
-                    $scope.posts = data.results;
-                })
-            ;
-        };
-        listPosts();
-
+        API.getFeed().then(function(data){
+            $scope.posts = data.results;
+        });
 
         $scope.createLike = function(postID){
             API.createLike(postID)

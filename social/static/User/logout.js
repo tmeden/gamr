@@ -3,6 +3,4 @@
 angular.module('gamr')
   .controller('LogoutCtrl', function ($scope, $location, djangoAuth) {
     djangoAuth.logout();
-    $location.path('/');
-  })
-;
+  });

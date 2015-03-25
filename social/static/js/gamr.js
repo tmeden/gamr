@@ -14,7 +14,9 @@ var gamr = angular.module('gamr', [
     .config(function($resourceProvider) {
         $resourceProvider.defaults.stripTrailingSlashes = false;
     })
-
+    .run(function(djangoAuth){
+        djangoAuth.initialize('//127.0.0.1:8000/rest-auth', false);
+    });
     //.run(function($location, API){
     //    console.log('run function called');
     //    API.startup();

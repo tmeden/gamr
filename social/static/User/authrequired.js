@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name gamr.controller:AuthrequiredCtrl
+ * @name angularDjangoRegistrationAuthApp.controller:AuthrequiredCtrl
  * @description
  * # AuthrequiredCtrl
- * Controller of the gamr
+ * Controller of the angularDjangoRegistrationAuthApp
  */
 angular.module('gamr')
   .controller('AuthrequiredCtrl', function ($scope) {

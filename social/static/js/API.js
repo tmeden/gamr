@@ -276,30 +276,42 @@ angular.module('gamr')
                 return deferred.promise;
             },
 
-            startup: function(){
-                console.log('this before this.fetchUser', this);
-                var _this = this;
-                _this.fetchUser().then(function(data){
-                    //console.log("run getchUser data: ", data);
-                    if (data.results[0].username){
-                        //console.log("we see data.res.urname!!1!", data);
-                        _this.setUser(data.results[0]);
-                        _this.myProfile().then(function(data){
-                            if (data.results[0].groups.length>0){
-                                //console.log("take me to your feeder!", data);
-                                $location.path('/feed');
-                            }else{
-                                //console.log("make it discover");
-                                $location.path('/discover');
-                            }
-                        });
-                    }else{
-                        console.log("[] is false");
-                        $location.path('/login');
-                    }
-                    return data.results[0];
-                });
+            getFeed: function(){
+                var deferred = $q.defer();
+                $http.get(api+'groups/feed')
+                    .success(function(data){
+                        deferred.resolve(data);
+                    })
+                    .error(function(msg){
+                        deferred.reject(msg);
+                    });
+                return deferred.promise;
             }
+
+            //startup: function(){
+            //    console.log('this before this.fetchUser', this);
+            //    var _this = this;
+            //    _this.fetchUser().then(function(data){
+            //        console.log("run getchUser data: ", data);
+            //        if (data.results[0].username){
+            //            console.log("we see data.res.urname!!1!", data);
+            //            _this.setUser(data.results[0]);
+            //            _this.myProfile().then(function(data){
+            //                if (data.results[0].groups.length>0){
+            //                    //console.log("take me to your feeder!", data);
+            //                    $location.path('/feed');
+            //                }else{
+            //                    //console.log("make it discover");
+            //                    $location.path('/discover');
+            //                }
+            //            });
+            //        }else{
+            //            console.log("[] is false");
+            //            $location.path('/login');
+            //        }
+            //        return data.results[0];
+            //    });
+            //}
         };
     })
 ;

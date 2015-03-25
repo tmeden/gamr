@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
 
-</body>
-</html>
+<div class="col-lg-8 col-lg-offset-2">
+
+    <h1>{{ group.name }}</h1>
+    <p>{{ group.members.length }} members</p>
+    <p>{{ group.description }}</p>
+    <hr />
+
+    <textarea class="form-control" rows="3" ng-model="newPostText" placeholder="What's on your mind?"></textarea>
+    <button class="btn btn-default pull-right" ng-click="createPost()">Post</button><br><br>
+
+    <div ng-repeat="post in group.posts">
+
+        <!--<hr style="clear:both;margin-top:60px;" />
+        <h4><a href="" ng-href="#/profile/{{ post.owner }}">{{post.owner_name}}</a></h4>
+        <p><a href="#/posts/{{post.pk}}">{{post.timestamp}}</a></p>
+        <p>{{post.text}}</p>
+        <p><a href="" ng-click="createLike(post.pk)">Like <i class="fa fa-thumbs-o-up"></i></a></p>
+        <p>{{post.like_count}} likes | {{post.comment_count}} comments</p>-->
+        <hr />
+        <img ng-show="post.owner_profile_image" src="{{ post.owner_profile_image }}" class="pull-right" height=128 width=128 />
+        <img ng-hide="post.owner_profile_image" src="/static/img/Icon-user.png" class="pull-right" height=128 width=128 />
+        <h4><a href="" ng-href="#/profile/{{post.owner}}">{{post.owner_name}}</a></h4>
+        <p><a href="#/posts/{{post.pk}}">{{post.timestamp | date:'medium'}}</a></p>
+        <div style="margin-right: 180px;"><p>{{post.text}}</p></div>
+        <p style="clear:left;">{{post.like_count}} likes | {{post.comment_count}} comments</p>
+        <p><a href="" ng-click="createLike(post.pk)">Like <i class="fa fa-thumbs-o-up"></i></a> <a href="" ng-href="/posts/{{ post.pk }}">View/Comment</a></p>
+
+    </div>
+</div>

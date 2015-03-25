@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name gamr.controller:RestrictedCtrl
+ * @name angularDjangoRegistrationAuthApp.controller:RestrictedCtrl
  * @description
  * # RestrictedCtrl
- * Controller of the gamr
+ * Controller of the angularDjangoRegistrationAuthApp
  */
 angular.module('gamr')
   .controller('RestrictedCtrl', function ($scope, $location) {

@@ -4,23 +4,32 @@ angular.module('gamr')
   .controller('UserCtrl',
   function UserCtrl($scope, $rootScope, $location, API) {
 
-    var userObj = API.fetchUser()
+    $scope.user = false;
+
+    API.fetchUser()
         .then(function(data){
+            console.log("fetchdata", data);
             $scope.user = data.results[0].username;
             API.setUser(data.results[0]);
         })
     ;
 
-    console.log('UserCtrl:', $scope.user);
-
     $rootScope.$on('djangoAuth.logged_in', function (){
-      API.startup();
-      $scope.user = API.getUsername();
+        API.fetchUser()
+            .then(function(data){
+                console.log("fetchdata", data);
+                $scope.user = data.results[0].username;
+                API.setUser(data.results[0]);
+            })
+        ;
+        $location.path('/feed');
     });
 
     $rootScope.$on('djangoAuth.logged_out', function (){
-      API.startup();
-      $scope.user = API.getUsername();
+      console.log("user ctrl sees logout on rootscope")
+      //$scope.user = API.getUsername();
+        $scope.user = false;
+        $location.path('/');
     });
 
   })

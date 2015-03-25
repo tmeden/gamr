@@ -8,14 +8,10 @@ angular.module('gamr')
 
         $scope.profile = {};
 
-        var getProfile = function(pk) {
-            console.log("profile:", pk);
-            API.readProfile(pk).then(function (data) {
-                $scope.profile = data;
-                console.log(data);
-            });
-        };
-        getProfile($routeParams.id);
+        API.readProfile($routeParams.id).then(function (data) {
+            $scope.profile = data;
+            console.log(data);
+        });
 
         //var listGroups = function() {
         //    API.listGroup()

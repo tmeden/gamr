@@ -1,14 +1,18 @@
 
-<div class="col-lg-6 col-lg-offset-3">
+<div class="col-lg-8 col-lg-offset-2">
 
-    <div class="col-lg-10"><input type="text" ng-model="searchTerm" placeholder="search for groups..." /></div>
-    <button class="col-lg-2 btn btn-default" ng-click="search()">Search</button>
+
+    <div class="no-gutter">
+        <div class="col-lg-10"><input type="text" class="form-control" ng-model="searchTerm" placeholder="search for groups..." /></div>
+        <button class="col-lg-2 btn btn-default" ng-click="search()">Search</button>
+    </div>
+
+    <br><br>
 
     <div ng-repeat="group in groups.slice().reverse()">
-        <hr>
+        <hr />
         <button class="btn btn-default pull-right" ng-click="joinGroup(group.pk)">Join</button>
-        <h4>{{group.name}} ({{ group.pk }})</h4>
-        <p>Created by {{group.owner_username}}.</p>
+        <h4>{{group.name}}</h4>
         <p>{{group.description}}</p>
 
     </div>

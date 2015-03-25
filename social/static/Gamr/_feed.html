@@ -12,7 +12,7 @@
         <p><a href="#/posts/{{post.pk}}">{{post.timestamp | date:'medium'}}</a></p>
         <div style="margin-right: 180px;"><p>{{post.text}}</p></div>
         <p style="clear:left;">{{post.like_count}} likes | {{post.comment_count}} comments</p>
-        <p><a href="" ng-click="createLike(post.pk)">Like <i class="fa fa-thumbs-o-up"></i></a></p>
+        <p><a href="" ng-click="createLike(post.pk)">Like <i class="fa fa-thumbs-o-up"></i></a> <a href="" ng-href="#/posts/{{ post.pk }}">View/Comment</a></p>
 
         <!--<div ng-repeat="comment in post.comments">
             <hr>

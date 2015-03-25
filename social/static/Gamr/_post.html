@@ -1,6 +1,6 @@
 <div class="col-lg-8 col-lg-offset-2">
-    <h5>{{post.owner_name}} in {{ post.group_name }}</h5>
-    <h6>{{ post.timestamp }}</h6>
+    <h3>{{post.owner_name}} in <a href="" ng-href="#/groups/{{ post.group }}">{{ post.group_name }}</a></h3>
+    <h6>{{ post.timestamp | date:'medium' }}</h6>
     <p>{{post.text}}</p>
     <div ng-repeat="comment in post.comments">
         <hr>

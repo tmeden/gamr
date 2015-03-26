@@ -2,12 +2,12 @@
 <div class="col-lg-8 col-lg-offset-2">
 
     <h1>{{ group.name }}</h1>
-    <p>{{ group.members.length }} members</p>
+    <p>{{ group.members.length }} member<span ng-hide="group.members.length===1">s</span></p>
     <p>{{ group.description }}</p>
     <hr />
 
-    <textarea class="form-control" rows="3" ng-model="newPostText" placeholder="What's on your mind?"></textarea>
-    <button class="btn btn-default pull-right" ng-click="createPost()">Post</button><br><br>
+    <textarea class="form-control" rows="3" ng-model="newPostText" placeholder="What's happening?"></textarea>
+    <button class="btn btn-primary pull-right" ng-click="createPost()">Post</button><br><br>
 
     <div ng-repeat="post in group.posts">
 
@@ -18,13 +18,13 @@
         <p><a href="" ng-click="createLike(post.pk)">Like <i class="fa fa-thumbs-o-up"></i></a></p>
         <p>{{post.like_count}} likes | {{post.comment_count}} comments</p>-->
         <hr />
-        <img ng-show="post.owner_profile_image" src="{{ post.owner_profile_image }}" class="pull-right" height=128 width=128 />
-        <img ng-hide="post.owner_profile_image" src="/static/img/Icon-user.png" class="pull-right" height=128 width=128 />
+        <img ng-show="post.owner_profile_image" src="{{ post.owner_profile_image }}" class="pull-right" height=128 width=128 style="-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;" />
+        <img ng-hide="post.owner_profile_image" src="/static/img/Icon-user.png" class="pull-right" height=128 width=128 style="-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;" />
         <h4><a href="" ng-href="#/profile/{{post.owner}}">{{post.owner_name}}</a></h4>
         <p><a href="#/posts/{{post.pk}}">{{post.timestamp | date:'medium'}}</a></p>
-        <div style="margin-right: 180px;"><p>{{post.text}}</p></div>
-        <p style="clear:left;">{{post.like_count}} likes | {{post.comment_count}} comments</p>
-        <p><a href="" ng-click="createLike(post.pk)">Like <i class="fa fa-thumbs-o-up"></i></a> <a href="" ng-href="#/posts/{{ post.pk }}">View/Comment</a></p>
+        <div style="padding-right: 180px;"><p>{{post.text}}</p></div>
+        <p style="clear:left;">{{post.like_count}} like<span ng-hide="post.like_count===1">s</span> | {{post.comment_count}} comment<span ng-hide="post.comment_count===1">s</span></p>
+        <p><a href="" ng-click="createLike(post.pk)"><button class="btn btn-primary"><i class="fa fa-thumbs-o-up"></i> like</button></a> <button class="btn btn-default"><a href="" ng-href="#/posts/{{ post.pk }}"><i class="fa fa-pencil"></i> comment</button></a></p>
 
     </div>
 </div>

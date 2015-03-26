@@ -4,16 +4,17 @@
 
     <div class="no-gutter">
         <div class="col-lg-10"><input type="text" class="form-control" ng-model="searchTerm" placeholder="search for groups..." /></div>
-        <button class="col-lg-2 btn btn-default" ng-click="search()">Search</button>
+        <button class="col-lg-2 btn btn-primary" ng-click="search()">Search</button>
     </div>
 
     <br><br>
 
     <div ng-repeat="group in groups.slice().reverse()">
         <hr />
-        <button class="btn btn-default pull-right" ng-click="joinGroup(group.pk)">Join</button>
+        <button class="btn btn-primary pull-right" ng-click="joinGroup(group.pk)">Join</button>
         <h4>{{group.name}}</h4>
         <p>{{group.description}}</p>
+        <p>{{ group.members.length }} member<span ng-hide="group.members.length===1">s</span></p>
 
     </div>
 </div>

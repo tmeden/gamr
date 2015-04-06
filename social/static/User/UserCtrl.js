@@ -8,7 +8,6 @@ angular.module('gamr')
 
     API.fetchUser()
         .then(function(data){
-            console.log("fetchdata", data);
             $scope.user = data.results[0].username;
             API.setUser(data.results[0]);
         })
@@ -17,7 +16,6 @@ angular.module('gamr')
     $rootScope.$on('djangoAuth.logged_in', function (){
         API.fetchUser()
             .then(function(data){
-                console.log("fetchdata", data);
                 $scope.user = data.results[0].username;
                 API.setUser(data.results[0]);
             })
@@ -26,8 +24,6 @@ angular.module('gamr')
     });
 
     $rootScope.$on('djangoAuth.logged_out', function (){
-      console.log("user ctrl sees logout on rootscope")
-      //$scope.user = API.getUsername();
         $scope.user = false;
         $location.path('/');
     });

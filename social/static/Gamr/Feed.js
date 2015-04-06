@@ -5,7 +5,6 @@ angular.module('gamr')
     function FeedCtrl($scope, $rootScope, API){
 
         $scope.posts = [];
-        console.log('FeedCtrl happening');
 
         API.getFeed().then(function(data){
             $scope.posts = data.results;

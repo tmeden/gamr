@@ -11,8 +11,6 @@ urlpatterns = patterns('',
 
     url(r'^profile/(?P<pk>\d+)', RetrieveUpdateProfile.as_view()),
 
-    # url(r'^users/me', MyProfile.as_view()),
-
     url(r'^users/(?P<pk>\d+)', RetrieveUser.as_view()),
 
     url(r'^users', ListUser.as_view()),

@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-from requests import Response
 from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
